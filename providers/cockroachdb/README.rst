@@ -1,4 +1,3 @@
-
 .. Licensed to the Apache Software Foundation (ASF) under one
    or more contributor license agreements.  See the NOTICE file
    distributed with this work for additional information
@@ -21,31 +20,30 @@
 .. IF YOU WANT TO MODIFY TEMPLATE FOR THIS FILE, YOU SHOULD MODIFY THE TEMPLATE
    ``PROVIDER_README_TEMPLATE.rst.jinja2`` IN the ``dev/breeze/src/airflow_breeze/templates`` DIRECTORY
 
-Package ``apache-airflow-providers-postgres``
+Package ``apache-airflow-providers-cockroachdb``
 
-Release: ``6.2.1``
+Release: ``0.0.1``
 
-
-`PostgreSQL <https://www.postgresql.org/>`__
-
+`CockroachDB <https://www.cockroachlabs.com/>`__
 
 Provider package
 ----------------
 
-This is a provider package for ``postgres`` provider. All classes for this provider package
-are in ``airflow.providers.postgres`` python package.
+This is a provider package for ``cockroachdb``. All classes for this provider package
+are in the ``airflow.providers.cockroachdb`` Python package.
 
 You can find package information and changelog for the provider
-in the `documentation <https://airflow.apache.org/docs/apache-airflow-providers-postgres/6.2.1/>`_.
+in the `documentation <https://airflow.apache.org/docs/apache-airflow-providers-cockroachdb/0.0.1/>`_.
 
 Installation
 ------------
 
 You can install this package on top of an existing Airflow 2 installation (see ``Requirements`` below
-for the minimum Airflow version supported) via
-``pip install apache-airflow-providers-postgres``
+for the minimum Airflow version supported) via:
 
-The package supports the following python versions: 3.10,3.11,3.12
+``pip install apache-airflow-providers-cockroachdb``
+
+The package supports the following Python versions: 3.10, 3.11, 3.12
 
 Requirements
 ------------
@@ -69,8 +67,7 @@ You can install such cross-provider dependencies when installing from PyPI. For 
 
 .. code-block:: bash
 
-    pip install apache-airflow-providers-postgres[amazon]
-
+    pip install apache-airflow-providers-cockroachdb[amazon]
 
 ==============================================================================================================  ===============
 Dependent package                                                                                               Extra
@@ -81,4 +78,4 @@ Dependent package                                                               
 ==============================================================================================================  ===============
 
 The changelog for the provider package can be found in the
-`changelog <https://airflow.apache.org/docs/apache-airflow-providers-postgres/6.2.1/changelog.html>`_.
+`changelog <https://airflow.apache.org/docs/apache-airflow-providers-cockroachdb/0.0.1/changelog.html>`_.

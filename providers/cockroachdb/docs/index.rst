@@ -1,23 +1,22 @@
- .. Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+.. Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
 
- ..   http://www.apache.org/licenses/LICENSE-2.0
+..   http://www.apache.org/licenses/LICENSE-2.0
 
- .. Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+.. Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
 
-``apache-airflow-providers-postgres``
-=====================================
-
+``apache-airflow-providers-cockroachdb``
+========================================
 
 .. toctree::
     :hidden:
@@ -33,7 +32,7 @@
     :maxdepth: 1
     :caption: Guides
 
-    Connection types <connections/postgres>
+    Connection types <connections/cockroachdb>
     Operators <operators>
 
 .. toctree::
@@ -41,7 +40,7 @@
     :maxdepth: 1
     :caption: References
 
-    Python API <_api/airflow/providers/postgres/index>
+    Python API <_api/airflow/providers/cockroachdb/index>
     Dialects <dialects>
 
 .. toctree::
@@ -49,19 +48,18 @@
     :maxdepth: 1
     :caption: System tests
 
-    System Tests <_api/tests/system/postgres/index>
+    System Tests <_api/tests/system/cockroachdb/index>
 
 .. toctree::
     :hidden:
     :maxdepth: 1
     :caption: Resources
 
-    Example DAGs <https://github.com/apache/airflow/tree/providers-postgres/|version|/providers/postgres/tests/system/postgres>
-    PyPI Repository <https://pypi.org/project/apache-airflow-providers-postgres/>
+    Example DAGs <https://github.com/apache/airflow/tree/providers-cockroachdb/|version|/providers/cockroachdb/tests/system/cockroachdb>
+    PyPI Repository <https://pypi.org/project/apache-airflow-providers-cockroachdb/>
     Installing from sources <installing-providers-from-sources>
 
 .. THE REMAINDER OF THE FILE IS AUTOMATICALLY GENERATED. IT WILL BE OVERWRITTEN AT RELEASE TIME!
-
 
 .. toctree::
     :hidden:
@@ -71,25 +69,24 @@
     Detailed list of commits <commits>
 
 
-apache-airflow-providers-postgres package
-------------------------------------------------------
+apache-airflow-providers-cockroachdb package
+--------------------------------------------
 
-`PostgreSQL <https://www.postgresql.org/>`__
+`CockroachDB <https://www.cockroachlabs.com/>`__
 
-
-Release: 6.2.1
+Release: 0.0.1
 
 Provider package
 ----------------
 
-This package is for the ``postgres`` provider.
-All classes for this package are included in the ``airflow.providers.postgres`` python package.
+This package is for the ``cockroachdb`` provider.
+All classes for this package are included in the ``airflow.providers.cockroachdb`` python package.
 
 Installation
 ------------
 
 You can install this package on top of an existing Airflow 2 installation via
-``pip install apache-airflow-providers-postgres``.
+``pip install apache-airflow-providers-cockroachdb``.
 For the minimum Airflow version supported, see ``Requirements`` below.
 
 Requirements
@@ -116,8 +113,7 @@ You can install such cross-provider dependencies when installing from PyPI. For 
 
 .. code-block:: bash
 
-    pip install apache-airflow-providers-postgres[amazon]
-
+    pip install apache-airflow-providers-cockroachdb[amazon]
 
 ==============================================================================================================  ===============
 Dependent package                                                                                               Extra
@@ -133,5 +129,5 @@ Downloading official packages
 You can download officially released packages and verify their checksums and signatures from the
 `Official Apache Download site <https://downloads.apache.org/airflow/providers/>`_
 
-* `The apache-airflow-providers-postgres 6.2.1 sdist package <https://downloads.apache.org/airflow/providers/apache_airflow_providers_postgres-6.2.1.tar.gz>`_ (`asc <https://downloads.apache.org/airflow/providers/apache_airflow_providers_postgres-6.2.1.tar.gz.asc>`__, `sha512 <https://downloads.apache.org/airflow/providers/apache_airflow_providers_postgres-6.2.1.tar.gz.sha512>`__)
-* `The apache-airflow-providers-postgres 6.2.1 wheel package <https://downloads.apache.org/airflow/providers/apache_airflow_providers_postgres-6.2.1-py3-none-any.whl>`_ (`asc <https://downloads.apache.org/airflow/providers/apache_airflow_providers_postgres-6.2.1-py3-none-any.whl.asc>`__, `sha512 <https://downloads.apache.org/airflow/providers/apache_airflow_providers_postgres-6.2.1-py3-none-any.whl.sha512>`__)
+* `The apache-airflow-providers-cockroachdb 0.0.1 sdist package <https://downloads.apache.org/airflow/providers/apache_airflow_providers_cockroachdb-0.0.1.tar.gz>`_ (`asc <https://downloads.apache.org/airflow/providers/apache_airflow_providers_cockroachdb-0.0.1.tar.gz.asc>`__, `sha512 <https://downloads.apache.org/airflow/providers/apache_airflow_providers_cockroachdb-0.0.1.tar.gz.sha512>`__)
+* `The apache-airflow-providers-cockroachdb 0.0.1 wheel package <https://downloads.apache.org/airflow/providers/apache_airflow_providers_cockroachdb-0.0.1-py3-none-any.whl>`_ (`asc <https://downloads.apache.org/airflow/providers/apache_airflow_providers_cockroachdb-0.0.1-py3-none-any.whl.asc>`__, `sha512 <https://downloads.apache.org/airflow/providers/apache_airflow_providers_cockroachdb-0.0.1-py3-none-any.whl.sha512>`__)

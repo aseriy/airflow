@@ -22,16 +22,26 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from urllib.parse import SplitResult
 
-
 def sanitize_uri(uri: SplitResult) -> SplitResult:
+    """
+    Ensures CockroachDB URIs (which use the postgres driver) are valid and consistent.
+
+    Notes:
+        - CockroachDB reuses the postgres driver, so the URI must remain in `postgres://` format.
+        - This method adjusts the URI to ensure the presence of port, database, schema, and table names.
+    """
     if not uri.netloc:
-        raise ValueError("URI format postgres:// must contain a host")
+        raise ValueError("CockroachDB URI (e.g., postgres://host) must include a hostname")
+
     if uri.port is None:
-        host = uri.netloc.rstrip(":")
-        uri = uri._replace(netloc=f"{host}:5432")
+        host = uri.hostname or "localhost"
+        uri = uri._replace(netloc=f"{host}:26257")
+
     path_parts = uri.path.split("/")
     if len(path_parts) != 4:  # Leading slash, database, schema, and table names.
-        raise ValueError("URI format postgres:// must contain database, schema, and table names")
+        raise ValueError("CockroachDB URI must include database, schema, and table names in path")
+
     if not path_parts[2]:
         path_parts[2] = "default"
+
     return uri._replace(scheme="postgres", path="/".join(path_parts))

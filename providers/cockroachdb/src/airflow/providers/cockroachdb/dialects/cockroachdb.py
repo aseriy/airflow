@@ -14,6 +14,7 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+
 from __future__ import annotations
 
 from methodtools import lru_cache
@@ -21,12 +22,12 @@ from methodtools import lru_cache
 from airflow.providers.common.sql.dialects.dialect import Dialect
 
 
-class PostgresDialect(Dialect):
-    """Postgres dialect implementation."""
+class CockroachDBDialect(Dialect):
+    """CockroachDB dialect implementation using PostgreSQL compatibility."""
 
     @property
     def name(self) -> str:
-        return "postgresql"
+        return "cockroachdb"
 
     @lru_cache(maxsize=None)
     def get_primary_keys(self, table: str, schema: str | None = None) -> list[str] | None:
@@ -68,12 +69,12 @@ class PostgresDialect(Dialect):
         :return: The generated INSERT or REPLACE SQL statement
         """
         if not target_fields:
-            raise ValueError("PostgreSQL ON CONFLICT upsert syntax requires column names")
+            raise ValueError("CockroachDB ON CONFLICT upsert syntax requires column names")
 
         replace_index = kwargs.get("replace_index") or self.get_primary_keys(table)
 
         if not replace_index:
-            raise ValueError("PostgreSQL ON CONFLICT upsert syntax requires an unique index")
+            raise ValueError("CockroachDB ON CONFLICT upsert syntax requires a unique index")
 
         if isinstance(replace_index, str):
             replace_index = [replace_index]

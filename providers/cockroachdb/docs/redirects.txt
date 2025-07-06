@@ -1,1 +1,1 @@
-connections/index.rst connections/postgres.rst
+connections/index.rst connections/cockroachdb.rst

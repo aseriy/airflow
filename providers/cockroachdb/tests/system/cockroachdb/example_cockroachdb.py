@@ -22,14 +22,14 @@ import os
 from airflow import DAG
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 
-# [START postgres_sql_execute_query_operator_howto_guide]
+# [START cockroachdb_sql_execute_query_operator_howto_guide]
 
 
 # create_pet_table, populate_pet_table, get_all_pets, and get_birth_date are examples of tasks created by
-# instantiating the Postgres Operator
+# instantiating the CockroachDB Operator
 
 ENV_ID = os.environ.get("SYSTEM_TESTS_ENV_ID")
-DAG_ID = "postgres_operator_dag"
+DAG_ID = "cockroachdb_operator_dag"
 
 with DAG(
     dag_id=DAG_ID,
@@ -37,7 +37,7 @@ with DAG(
     schedule="@once",
     catchup=False,
 ) as dag:
-    # [START postgres_sql_execute_query_operator_howto_guide_create_pet_table]
+    # [START cockroachdb_sql_execute_query_operator_howto_guide_create_pet_table]
     create_pet_table = SQLExecuteQueryOperator(
         task_id="create_pet_table",
         sql="""
@@ -49,8 +49,8 @@ with DAG(
             OWNER VARCHAR NOT NULL);
           """,
     )
-    # [END postgres_sql_execute_query_operator_howto_guide_create_pet_table]
-    # [START postgres_sql_execute_query_operator_howto_guide_populate_pet_table]
+    # [END cockroachdb_sql_execute_query_operator_howto_guide_create_pet_table]
+    # [START cockroachdb_sql_execute_query_operator_howto_guide_populate_pet_table]
     populate_pet_table = SQLExecuteQueryOperator(
         task_id="populate_pet_table",
         sql="""
@@ -64,21 +64,21 @@ with DAG(
             VALUES ( 'Quincy', 'Parrot', '2013-08-11', 'Anne');
             """,
     )
-    # [END postgres_sql_execute_query_operator_howto_guide_populate_pet_table]
-    # [START postgres_sql_execute_query_operator_howto_guide_get_all_pets]
+    # [END cockroachdb_sql_execute_query_operator_howto_guide_populate_pet_table]
+    # [START cockroachdb_sql_execute_query_operator_howto_guide_get_all_pets]
     get_all_pets = SQLExecuteQueryOperator(task_id="get_all_pets", sql="SELECT * FROM pet;")
-    # [END postgres_sql_execute_query_operator_howto_guide_get_all_pets]
-    # [START postgres_sql_execute_query_operator_howto_guide_get_birth_date]
+    # [END cockroachdb_sql_execute_query_operator_howto_guide_get_all_pets]
+    # [START cockroachdb_sql_execute_query_operator_howto_guide_get_birth_date]
     get_birth_date = SQLExecuteQueryOperator(
         task_id="get_birth_date",
         sql="SELECT * FROM pet WHERE birth_date BETWEEN SYMMETRIC %(begin_date)s AND %(end_date)s",
         parameters={"begin_date": "2020-01-01", "end_date": "2020-12-31"},
         hook_params={"options": "-c statement_timeout=3000ms"},
     )
-    # [END postgres_sql_execute_query_operator_howto_guide_get_birth_date]
+    # [END cockroachdb_sql_execute_query_operator_howto_guide_get_birth_date]
 
     create_pet_table >> populate_pet_table >> get_all_pets >> get_birth_date
-    # [END postgres_sql_execute_query_operator_howto_guide]
+    # [END cockroachdb_sql_execute_query_operator_howto_guide]
 
     from tests_common.test_utils.watcher import watcher
 

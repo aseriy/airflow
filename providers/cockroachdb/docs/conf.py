@@ -22,6 +22,6 @@ from __future__ import annotations
 
 import os
 
-os.environ["AIRFLOW_PACKAGE_NAME"] = "apache-airflow-providers-postgres"
+os.environ["AIRFLOW_PACKAGE_NAME"] = "apache-airflow-providers-cockroachdb"
 
 from docs.provider_conf import *  # noqa: F403
