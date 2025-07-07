@@ -34,6 +34,7 @@ from airflow_breeze.global_constants import (
     ALLOWED_DOCKER_COMPOSE_PROJECTS,
     ALLOWED_INSTALLATION_DISTRIBUTION_FORMATS,
     ALLOWED_MYSQL_VERSIONS,
+    ALLOWED_COCKROACHDB_VERSIONS,
     ALLOWED_PYTHON_MAJOR_MINOR_VERSIONS,
     APACHE_AIRFLOW_GITHUB_REPOSITORY,
     BREEZE_DEBUG_APISERVER_PORT,
@@ -64,6 +65,8 @@ from airflow_breeze.global_constants import (
     MYSQL_HOST_PORT,
     POSTGRES_BACKEND,
     POSTGRES_HOST_PORT,
+    COCKROACHDB_BACKEND,
+    COCKROACHDB_HOST_PORT,
     RABBITMQ_HOST_PORT,
     REDIS_HOST_PORT,
     SIMPLE_AUTH_MANAGER,
@@ -213,6 +216,7 @@ class ShellParams:
     parallelism: int = 0
     platform: str = DOCKER_DEFAULT_PLATFORM
     postgres_version: str = DEFAULT_POSTGRES_VERSION
+    cockroachdb_version: str = ALLOWED_COCKROACHDB_VERSIONS[0]
     project_name: str = ALLOWED_DOCKER_COMPOSE_PROJECTS[0]
     providers_constraints_location: str = ""
     providers_constraints_mode: str = ALLOWED_CONSTRAINTS_MODES_CI[0]
@@ -318,6 +322,8 @@ class ShellParams:
         version = ""
         if self.backend == "postgres":
             version = self.postgres_version
+        if self.backend == "cockroachdb":
+            version = self.cockroachdb_version
         if self.backend == "mysql":
             version = self.mysql_version
         return version
@@ -649,6 +655,8 @@ class ShellParams:
         _set_var(_env, "DISTRIBUTION_FORMAT", self.distribution_format)
         _set_var(_env, "POSTGRES_HOST_PORT", None, POSTGRES_HOST_PORT)
         _set_var(_env, "POSTGRES_VERSION", self.postgres_version)
+        _set_var(_env, "COCKROACHDB_HOST_PORT", None, POSTGRES_HOST_PORT)
+        _set_var(_env, "COCKROACHDB_VERSION", self.cockroachdb_version)
         _set_var(_env, "PROVIDERS_CONSTRAINTS_LOCATION", self.providers_constraints_location)
         _set_var(_env, "PROVIDERS_CONSTRAINTS_MODE", self.providers_constraints_mode)
         _set_var(_env, "PROVIDERS_CONSTRAINTS_REFERENCE", self.providers_constraints_reference)

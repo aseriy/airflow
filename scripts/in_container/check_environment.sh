@@ -58,6 +58,8 @@ function check_db_backend {
     elif [[ ${BACKEND} == "mssql" ]]; then
         check_service "MSSQL" "run_nc mssql 1433" "${max_check}"
         check_service "MSSQL Login Check" "airflow db check" "${max_check}"
+    elif [[ ${BACKEND} == "cockroachdb" ]]; then
+        check_service "CockroachDB" "run_nc cockroachdb 26257" "${max_check}"
     elif [[ ${BACKEND} == "sqlite" ]]; then
         return
     elif [[ ${BACKEND} == "none" ]]; then
@@ -65,12 +67,12 @@ function check_db_backend {
 
         if [[ ${START_AIRFLOW=} == "true" ]]; then
             echo "${COLOR_RED}ERROR: 'start-airflow' cannot be used with --backend=none${COLOR_RESET}"
-            echo "${COLOR_RED}Supported values are: [postgres,mysql,sqlite]${COLOR_RESET}"
+            echo "${COLOR_RED}Supported values are: [postgres,mysql,sqlite,cockroachdb]${COLOR_RESET}"
             echo "${COLOR_RED}Please specify one using '--backend'${COLOR_RESET}"
             exit 1
         fi
     else
-        echo "${COLOR_RED}ERROR: Unknown backend. Supported values: [postgres,mysql,sqlite]. Current value: [${BACKEND}]${COLOR_RESET}"
+        echo "${COLOR_RED}ERROR: Unknown backend. Supported values: [postgres,mysql,sqlite,cockroachdb]. Current value: [${BACKEND}]${COLOR_RESET}"
         exit 1
     fi
 }

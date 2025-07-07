@@ -148,6 +148,7 @@ def default_action_log(
     except (OperationalError, ProgrammingError) as e:
         expected = [
             '"log" does not exist',  # postgres
+            'relation "log" does not exist',  # cockroachdb
             "no such table",  # sqlite
             "log' doesn't exist",  # mysql
         ]
