@@ -42,8 +42,6 @@ from airflow.utils import cli_action_loggers
 from airflow.utils.log.non_caching_file_handler import NonCachingFileHandler
 from airflow.utils.platform import getuser, is_terminal_support_colors
 
-import dev.patches.patch_sqlalchemy_for_cockroachdb
-
 T = TypeVar("T", bound=Callable)
 
 if TYPE_CHECKING:
