@@ -1862,7 +1862,8 @@ RUN bash /scripts/docker/install_packaging_tools.sh; bash /scripts/docker/create
 COPY --chown=airflow:0 ${AIRFLOW_SOURCES_FROM} ${AIRFLOW_SOURCES_TO}
 
 # Add extra python dependencies
-ARG ADDITIONAL_PYTHON_DEPS=""
+ARG ADDITIONAL_PYTHON_DEPS="sqlalchemy-cockroachdb>=2.0.0"
+
 
 
 ARG VERSION_SUFFIX=""

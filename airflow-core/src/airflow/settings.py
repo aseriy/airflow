@@ -259,10 +259,16 @@ def configure_vars():
     global DONOT_MODIFY_HANDLERS
 
     SQL_ALCHEMY_CONN = conf.get("database", "sql_alchemy_conn")
+
+    # Prefer explicit async connection string if provided
     if conf.has_option("database", "sql_alchemy_conn_async"):
         SQL_ALCHEMY_CONN_ASYNC = conf.get("database", "sql_alchemy_conn_async")
     else:
         SQL_ALCHEMY_CONN_ASYNC = _get_async_conn_uri_from_sync(sync_uri=SQL_ALCHEMY_CONN)
+
+    log.debug("SQL_ALCHEMY_CONN = %s", SQL_ALCHEMY_CONN)
+    log.debug("SQL_ALCHEMY_CONN_ASYNC = %s", SQL_ALCHEMY_CONN_ASYNC)
+
 
     DAGS_FOLDER = os.path.expanduser(conf.get("core", "DAGS_FOLDER"))
 
@@ -398,6 +404,9 @@ def _configure_async_session() -> None:
 def configure_orm(disable_connection_pool=False, pool_class=None):
     """Configure ORM using SQLAlchemy."""
     from airflow._shared.secrets_masker import mask_secret
+
+    log.warning("DEBUG: SQL_ALCHEMY_CONN = %s", SQL_ALCHEMY_CONN)
+    log.warning("DEBUG: SQL_ALCHEMY_CONN_ASYNC = %s", SQL_ALCHEMY_CONN_ASYNC)
 
     if _is_sqlite_db_path_relative(SQL_ALCHEMY_CONN):
         from airflow.exceptions import AirflowConfigException

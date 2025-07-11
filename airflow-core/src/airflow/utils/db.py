@@ -697,6 +697,9 @@ def _create_db_from_orm(session):
         Base.metadata.create_all(engine)
 
         log.info("Getting alembic config")
+        # Required for CockroachDB: force visibility of non-transactional DDL
+        session.commit()
+
         config = _get_alembic_config()
 
         # Use AUTOCOMMIT for DDL to avoid metadata lock issues
