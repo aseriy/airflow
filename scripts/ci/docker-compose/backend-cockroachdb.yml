@@ -6,6 +6,8 @@ services:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=cockroachdb+psycopg2://root@cockroachdb:26257/airflow
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN_ASYNC=cockroachdb+asyncpg://root@cockroachdb:26257/airflow
       - AIRFLOW__CELERY__RESULT_BACKEND=db+cockroachdb://root@cockroachdb:26257/airflow
+
+
     depends_on:
       - airflowinit
 

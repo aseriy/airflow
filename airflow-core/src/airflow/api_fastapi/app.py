@@ -20,6 +20,7 @@ import logging
 from contextlib import AsyncExitStack, asynccontextmanager
 from typing import TYPE_CHECKING, cast
 from urllib.parse import urlsplit
+import os
 
 from fastapi import FastAPI
 from starlette.routing import Mount
@@ -37,6 +38,7 @@ from airflow.api_fastapi.execution_api.app import create_task_execution_api_app
 from airflow.configuration import conf
 from airflow.exceptions import AirflowConfigException
 from airflow.utils.providers_configuration_loader import providers_configuration_loaded
+import airflow.settings as settings
 
 if TYPE_CHECKING:
     from airflow.api_fastapi.auth.managers.base_auth_manager import BaseAuthManager
@@ -53,6 +55,7 @@ AUTH_MANAGER_FASTAPI_APP_PREFIX = f"{API_ROOT_PATH}auth"
 RESERVED_URL_PREFIXES = ["/api/v2", "/ui", "/execution"]
 
 log = logging.getLogger(__name__)
+log.warning("DEBUG: Uvicorn worker started with PID %s", os.getpid())
 
 app: FastAPI | None = None
 auth_manager: BaseAuthManager | None = None
@@ -72,7 +75,19 @@ async def lifespan(app: FastAPI):
 
 @providers_configuration_loaded
 def create_app(apps: str = "all") -> FastAPI:
-    apps_list = apps.split(",") if apps else ["all"]
+    log.warning("DEBUG: create_app() called with apps=%s in PID=%s", apps, os.getpid())
+
+    if settings.engine:
+        print("DEBUG: Disposing SQLAlchemy engine in PID", os.getpid())
+        settings.engine.dispose(close=False)
+        settings.engine = None
+
+    if settings.async_engine:
+        print("DEBUG: Disposing async_engine in PID", os.getpid())
+        settings.async_engine.sync_engine.dispose(close=False)
+        settings.async_engine = None
+        apps_list = apps.split(",") if apps else ["all"]
+
 
     app = FastAPI(
         title="Airflow API",
@@ -110,8 +125,13 @@ def create_app(apps: str = "all") -> FastAPI:
 def cached_app(config=None, testing=False, apps="all") -> FastAPI:
     """Return cached instance of Airflow API app."""
     global app
+
+    print("DEBUG: cached_app(): ", app)
+
     if not app:
         app = create_app(apps=apps)
+        print("DEBUG: cached_app(): ", app)
+
     return app
 
 

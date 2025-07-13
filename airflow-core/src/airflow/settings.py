@@ -441,6 +441,17 @@ def configure_orm(disable_connection_pool=False, pool_class=None):
         **engine_args,
         future=True,
     )
+
+    # Async engine for async tasks (CockroachDB-friendly)
+    async_engine = create_async_engine(SQL_ALCHEMY_CONN_ASYNC, future=True)
+    AsyncSession = sessionmaker(
+        bind=async_engine,
+        autocommit=False,
+        autoflush=False,
+        class_=SAAsyncSession,
+        expire_on_commit=False,
+    )
+
     _configure_async_session()
     mask_secret(engine.url.password)
     setup_event_handlers(engine)
@@ -462,6 +473,8 @@ def configure_orm(disable_connection_pool=False, pool_class=None):
     if register_at_fork := getattr(os, "register_at_fork", None):
         # https://docs.sqlalchemy.org/en/20/core/pooling.html#using-connection-pools-with-multiprocessing-or-os-fork
         def clean_in_fork():
+            print("DEBUG: clean_in_fork() called in PID", os.getpid())
+            
             _globals = globals()
             if engine := _globals.get("engine"):
                 engine.dispose(close=False)
